@@ -38,8 +38,8 @@
         <div class="site-mobile-menu-body"></div>
         </div>
     
-        <div class=" py-3 bg-light" id="home-section">
-        <!--<div class="container">
+        <div class=" py-1 bg-light" id="home-section">
+        <div class="container">
             <div class="row align-items-center">
             
             <div class="col-6 text-left">
@@ -58,7 +58,7 @@
                 
             </div>
             </div>
-        </div> -->
+        </div>
         </div>
 
         <header class="site-navbar py-4 bg-white js-sticky-header site-navbar-target" role="banner">
@@ -74,24 +74,110 @@
                 <nav class="site-navigation position-relative text-right" role="navigation">
 
                 <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
-                    <li><a href="#home-section" class="nav-link">Home</a></li>
-                    <li><a href="#services-section" class="nav-link">Servicios</a></li>
+                    @guest
+                    <li><a href="{{url('/')}} " class="nav-link">Home</a></li>
+
+                    <li class="dropdown nav-link">
+                      <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="false">Categorias<span class="caret"></span>
+                      </a>
+                      <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href="#">Mecanica</a>
+                            </li>
+                            <li>
+                                <a href="#">Albañileria</a>
+                            </li>
+                            <li>
+                                <a href="#">Plomeria</a>
+                            </li>
+                            <li>
+                                <a href="#">Herreria</a>
+                            </li>
+                            <li>
+                                <a href="#">Electrico</a>
+                            </li>
+                            <li>
+                                <a href="#">Aires Acondicionado</a>
+                            </li>
+                        </ul>
+
+                    </li>
+
                     <li><a href="#about-section" class="nav-link">Nosotros</a></li>
                     <!--<li><a href="#special-section" class="nav-link">Special</a></li>
                     <li><a href="#testimonials-section" class="nav-link">Testimonials</a></li>
                     <li><a href="#blog-section" class="nav-link">Blog</a></li>-->
                     <li><a href="#contact-section" class="nav-link">Contacto</a></li>
-                    @if (Route::has('login'))
-                        @auth
-                            <li><a class="nav-link" href="{{ url('/home') }}">Home</a></li>
-                        @else
-                            <li><a class="nav-link" href="{{ route('login') }}">Login</a></li>
+                    <li><a class="nav-link" href="{{ route('login') }}">Login</a></li>
+                    @if (Route::has('register'))
+                        <li><a class="nav-link" href="{{ route('register') }}">Register</a></li>
+                    @endif
+                    @else
+                    <li><a href="{{url('/')}} " class="nav-link">Home</a></li>
+                    <li class="dropdown nav-link">
+                      <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="false">Categorias<span class="caret"></span>
+                      </a>
+                      
+                      <ul class="dropdown-menu col-md-6" role="menu">
+                            <li class="ml-2">
+                                <a href="#">Mecanica</a>
+                            </li>
+                            <li class="ml-2">
+                                <a href="#">Albañileria</a>
+                            </li>
+                            <li class="ml-2">
+                                <a href="#">Plomeria</a>
+                            </li>
+                            <li class="ml-2">
+                                <a href="#">Herreria</a>
+                            </li>
+                            <li class="ml-2">
+                                <a href="#">Electrico</a>
+                            </li>
+                            <li class="ml-2">
+                                <a href="#">Aires Acondicionado</a>
+                            </li>
+                        </ul>
 
-                            @if (Route::has('register'))
-                                <li><a class="nav-link" href="{{ route('register') }}">Register</a></li>
+                    </li>
+                    <li class="dropdown nav-link">
+                        <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                            {{ Auth::user()->name }} <span class="caret"></span>
+                        </a>
+
+
+                        <ul class="dropdown-menu" role="menu">
+                            <li class="ml-2">
+                                <a href=" {{url('/home')}} ">Ir a cesta</a>
+                            </li>
+                            @if (Auth::user())
+                            <li class="ml-2">
+                                <a href=" {{url('/admin/products')}} ">Gestionar Empleados</a>
+                            </li>
+                            <li class="ml-2">
+                                <a href=" {{url('/admin/aspirant')}} ">Gestionar aspirantes</a>
+                            </li>
+                            <li class="ml-2">
+                                <a href=" {{url('/admin/products')}} ">Gestionar productos</a>
+                            </li>
+                            <li class="ml-2">
+                                <a href=" {{url('/admin/category')}} ">Gestionar Categorias</a>
+                            </li>
                             @endif
-                        @endauth
-                @endif
+                            <li class="ml-2">
+                                <a href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                        document.getElementById('logout-form').submit();">
+                                    {{ __('Cerrar Sesión') }}
+                                </a>
+
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                    style="display: none;">
+                                    @csrf
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
+                    @endguest
                 </ul>
                 </nav>
             </div>
@@ -103,8 +189,8 @@
         </div>
         
         </header>
+        <div class="site-wrap">@yield('content')</div>
         
-        @yield('content')
   </div>
   <script src="js/jquery-3.3.1.min.js"></script>
   <script src="js/jquery-migrate-3.0.1.min.js"></script>

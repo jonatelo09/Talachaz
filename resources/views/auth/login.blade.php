@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
+<div class="header header-filter"
+    style="background-image: url('{{ asset('selling/images/hero2.jpg') }}'); background-size: cover; background-position: top center;">
 <div class="site-section bg-light p-7" id="services-section">
 <div class="container">
     <div class="row justify-content-center">
@@ -70,6 +72,7 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 </div>
 @endsection
